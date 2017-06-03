@@ -13,8 +13,8 @@ from bs4 import BeautifulSoup
 logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 try:
     str(argv[1])
-except:
-    logging.critical('Please use FOLDER parameter!')
+except IndexError:
+    logging.critical('Please pass dump folder name as first parameter!')
     exit(1)
 timestamp = datetime.now()
 path = argv[1] + '/' + datetime.strftime(timestamp, '/%Y/%m/%d/%H%M%S/')
@@ -78,7 +78,7 @@ def get_website_data():
                 p = requests.post(URL,
                                   data=payload, headers=headers)
                 p_soup = BeautifulSoup(p.text, 'html.parser')
-                """Breaking on 1-page case or if no pages left."""
+                # Breaking on 1-page case or if no pages left
                 try:
                     if int(p_soup.find('a',
                                        {'id':
