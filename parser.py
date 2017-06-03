@@ -18,7 +18,7 @@ except:
     exit(1)
 timestamp = datetime.now()
 path = argv[1] + '/' + datetime.strftime(timestamp, '/%Y/%m/%d/%H%M%S/')
-"""Starting session for extra speed and connection liability."""
+# Starting session for extra speed and connection liability
 requests = requests.Session()
 URL = 'https://community.nasdaq.com/most-rated-stocks.aspx'
 basic_parameter = 'ctl00$ContentPlaceHolder$btn{}Ratings'
@@ -37,7 +37,7 @@ def get_website_data():
                '',
                '__VIEWSTATEENCRYPTED':
                ''}
-    """Fake activity to get form params for whole session and a Bulls page."""
+    # Fake activity to get form params for whole session and a Bulls page
     r = requests.get(URL,
                      headers=headers)
     r_soup = BeautifulSoup(r.text, 'html.parser')
@@ -50,7 +50,7 @@ def get_website_data():
     if not os.path.exists(path):
         try:
             os.makedirs(path)
-        except:
+        except OSError:
             logging.critical("""Error while creating reports folder! """
                              """Please check permissions or folder name.""")
     with open(path + 'data.csv', 'w') as csvfile:
@@ -68,8 +68,8 @@ def get_website_data():
                               data=payload, headers=headers)
             p_soup = BeautifulSoup(p.text, 'html.parser')
             logging.info('Page 1... OK')
-            [writer.writerow(rate)
-             for rate in get_page_data(p_soup, name)]
+            for rate in get_page_data(p_soup, name):
+                writer.writerow(rate)
             starting_page = 2
             while True:
                 payload['__EVENTTARGET'] =\
