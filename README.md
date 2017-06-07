@@ -7,3 +7,5 @@ Getting full financial data from NASDAQ on all community-rated stocks:
 - Bearish/Bullish
 - Expectations
 - Multipage support
+
+[![forthebadge](http://forthebadge.com/images/badges/pretty-risque.svg)](http://forthebadge.com)
